@@ -6,6 +6,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.geoffledak.winterize.R;
+import com.geoffledak.winterize.fragment.LoginFragment;
 import com.geoffledak.winterize.model.person.Info;
 import com.geoffledak.winterize.service.RachioClient;
 
@@ -27,11 +28,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_content_container, new LoginFragment()).commit();
+
+
         mDaTextView = (TextView) findViewById(R.id.stuff);
         mToken = getResources().getString(R.string.api_authorization);
         Retrofit retrofit = buildRetrofit();
 
         RachioClient client = retrofit.create(RachioClient.class);
+
+
+
         Call<Info> call = client.infoForPerson(mToken);
 
         call.enqueue(new Callback<Info>() {
