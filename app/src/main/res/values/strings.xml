@@ -5,6 +5,7 @@
     <string name="api_person_id_url">person/info</string>
     
     <string name="api_content_type">Content-Type: application/json</string>
-    <string name="api_authorization">Bearer 599c4261-103d-4e9a-b5c4-06558c7fcbe9</string>
+    <string name="api_auth_prefix">Bearer</string>
+    <string name="api_authorization">599c4261-103d-4e9a-b5c4-06558c7fcbe9</string>
 
 </resources>

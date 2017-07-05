@@ -5,10 +5,9 @@ import com.geoffledak.winterize.model.person.Info;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 
 /**
- * Created by Turbo9000 on 7/3/2017.
+ * Created by Geoff Ledak on 7/3/2017.
  */
 
 public interface RachioClient {
@@ -16,7 +15,6 @@ public interface RachioClient {
 
     @GET("person/info")
     Call<Info> infoForPerson(@Header("Authorization") String token);
-
 
 
 
