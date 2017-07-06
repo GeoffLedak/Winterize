@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.geoffledak.winterize.R;
 import com.geoffledak.winterize.activity.MainActivity;
-import com.geoffledak.winterize.model.Zone;
+import com.geoffledak.winterize.model.Device;
 import com.geoffledak.winterize.utils.AppKeys;
 
 import org.parceler.Parcels;
@@ -19,22 +19,23 @@ import org.parceler.Parcels;
  * Created by Turbo9000 on 7/6/2017.
  */
 
-public class ZoneDetailFragment extends Fragment {
+public class DeviceDetailFragment extends Fragment {
 
     View mView;
-    TextView mZoneName;
+    TextView mModel;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        mView = inflater.inflate(R.layout.fragment_zone_detail, container, false);
-        mZoneName = (TextView) mView.findViewById(R.id.zone_name);
+        mView = inflater.inflate(R.layout.fragment_device_detail, container, false);
+        mModel = (TextView) mView.findViewById(R.id.model);
 
-        Zone zone = Parcels.unwrap(getArguments().getParcelable(AppKeys.KEY_SELECTED_ZONE));
-        mZoneName.setText(zone.getName());
+        Device device = Parcels.unwrap(getArguments().getParcelable(AppKeys.KEY_SELECTED_DEVICE));
 
-        ((MainActivity)getContext()).getSupportActionBar().setTitle(zone.getName());
+        mModel.setText(device.getModel());
+
+        ((MainActivity)getContext()).getSupportActionBar().setTitle(device.getName());
 
         return mView;
     }

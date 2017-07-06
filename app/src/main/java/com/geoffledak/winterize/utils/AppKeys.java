@@ -6,6 +6,6 @@ package com.geoffledak.winterize.utils;
 
 public class AppKeys {
 
+    public static final String KEY_SELECTED_DEVICE = "selectedDevice";
     public static final String KEY_SELECTED_ZONE = "selectedZone";
-
 }

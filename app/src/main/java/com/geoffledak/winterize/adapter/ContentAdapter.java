@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.geoffledak.winterize.R;
+import com.geoffledak.winterize.fragment.DeviceDetailFragment;
 import com.geoffledak.winterize.fragment.ZoneDetailFragment;
 import com.geoffledak.winterize.model.Device;
 import com.geoffledak.winterize.model.Zone;
@@ -110,6 +111,16 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(view);
             mDeviceName = (TextView) view.findViewById(R.id.device_name);
 
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle args = new Bundle();
+                    args.putParcelable(AppKeys.KEY_SELECTED_DEVICE, Parcels.wrap( mContentList.get(getAdapterPosition()) ));
+                    DeviceDetailFragment fragment = new DeviceDetailFragment();
+                    fragment.setArguments(args);
+                    ((AppCompatActivity) mContext).getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.main_content_container, fragment).commit();
+                }
+            });
         }
     }
 
@@ -124,35 +135,14 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-
-                    Toast.makeText(v.getContext(), "Clicky", Toast.LENGTH_SHORT).show();
-                    Log.e("TAG", "CLICK!!!");
-
-
-
                     Bundle args = new Bundle();
-                    // args.putString(PrefKeys.KEY_IMAGE_URL, mImageItemList.get(getAdapterPosition()).getMedia().getM());
-
                     args.putParcelable(AppKeys.KEY_SELECTED_ZONE, Parcels.wrap( mContentList.get(getAdapterPosition())));
-
-
-
                     ZoneDetailFragment fragment = new ZoneDetailFragment();
                     fragment.setArguments(args);
-
                     ((AppCompatActivity) mContext).getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.main_content_container, fragment).commit();
-
-
                 }
             });
-
         }
-
-
-
-
-
     }
 
 

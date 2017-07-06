@@ -63,6 +63,8 @@ public class StatusFragment extends Fragment {
 
         loadInfoFull();
 
+        mActivity.getSupportActionBar().setTitle("Overview");
+
         return mView;
     }
 
