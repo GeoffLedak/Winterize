@@ -41,7 +41,6 @@ public class StatusFragment extends Fragment {
     private View mView;
     private MainActivity mActivity;
     private TextView mPersonId;
-    private TextView mZoneList;
 
     private TextView onOrOffText;
     private Button onOrOffButton;
@@ -56,7 +55,6 @@ public class StatusFragment extends Fragment {
         mView = inflater.inflate(R.layout.fragment_status, container, false);
         mActivity = ((MainActivity) getContext());
         mPersonId = (TextView) mView.findViewById(R.id.person_id);
-        mZoneList = (TextView) mView.findViewById(R.id.zone_list);
 
         onOrOffText = (TextView) mView.findViewById(R.id.device_on_or_off);
         onOrOffButton = (Button) mView.findViewById(R.id.button_set_device_on_or_off);
@@ -192,26 +190,15 @@ public class StatusFragment extends Fragment {
 
     private void printStuff() {
 
-        String daText = "";
-
         List<Device> deviceList = mActivity.getInfoFull().getDevices();
-
         List<Object> contentList = new ArrayList<>();
 
         for( Device device : deviceList ) {
-            daText = daText + device.getName() + "\n";
             contentList.add(device);
             for( Zone zone : device.getZones() ) {
-                daText = daText + zone.getName() + "\n";
                 contentList.add(zone);
             }
         }
-
-        mZoneList.setText( daText );
-
-
-
-
 
 
         mAdapter = new ContentAdapter(getContext(), contentList);
@@ -236,8 +223,6 @@ public class StatusFragment extends Fragment {
 
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
-
-
 
 
     }

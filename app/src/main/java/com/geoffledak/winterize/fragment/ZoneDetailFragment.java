@@ -32,7 +32,7 @@ public class ZoneDetailFragment extends Fragment {
 
         Zone zone = Parcels.unwrap(getArguments().getParcelable(AppKeys.KEY_SELECTED_ZONE));
         mZoneName.setText(zone.getName());
-        
+
         return mView;
     }
 }
