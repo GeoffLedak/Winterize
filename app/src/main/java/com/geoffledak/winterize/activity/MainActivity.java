@@ -7,9 +7,9 @@ import com.geoffledak.winterize.R;
 import com.geoffledak.winterize.fragment.LoginFragment;
 import com.geoffledak.winterize.model.InfoFull;
 
+
 public class MainActivity extends AppCompatActivity {
 
-    final private static String TAG = MainActivity.class.getSimpleName();
     private String mToken;
     private String mPersonId;
     private InfoFull mInfoFull;

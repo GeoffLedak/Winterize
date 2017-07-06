@@ -13,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIUtils {
 
+
     public static Retrofit buildRetrofit(Context context) {
 
         Retrofit.Builder builder = new Retrofit.Builder()
@@ -21,6 +22,7 @@ public class APIUtils {
 
         return builder.build();
     }
+
 
     public static String buildTokenString(Context context, String token) {
 
