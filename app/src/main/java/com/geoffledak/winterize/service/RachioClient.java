@@ -4,8 +4,11 @@ import com.geoffledak.winterize.model.Info;
 import com.geoffledak.winterize.model.InfoFull;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 /**
@@ -23,6 +26,12 @@ public interface RachioClient {
 
     @GET("person/{personId}")
     Call<InfoFull> infoFullForPerson(@Header("Authorization") String token, @Path("personId") String personIdd);
+
+    @PUT("device/on")
+    Call<String> turnOnDevice(@Header("Authorization") String token, @Body Info info);
+
+    @PUT("device/off")
+    Call<String> turnOffDevice(@Header("Authorization") String token, @Body Info info);
 
 
 

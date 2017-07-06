@@ -14,6 +14,10 @@ public class Info {
 
     public Info() { }
 
+    public Info(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }

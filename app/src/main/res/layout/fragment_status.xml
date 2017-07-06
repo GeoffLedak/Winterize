@@ -18,13 +18,30 @@
         android:layout_height="wrap_content"
         android:text="id"/>
 
+
+
+    <TextView
+        android:id="@+id/device_on_or_off"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:textSize="24sp"
+        android:text="device on or off"/>
+
+    <Button
+        android:id="@+id/button_set_device_on_or_off"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="on / off"/>
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:text="Zones"/>
+        android:text="Devices"/>
 
     <TextView
         android:id="@+id/zone_list"
