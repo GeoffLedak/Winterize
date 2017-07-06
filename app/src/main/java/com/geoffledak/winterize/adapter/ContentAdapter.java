@@ -1,6 +1,7 @@
 package com.geoffledak.winterize.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -65,6 +66,16 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if( holder.getItemViewType() == DEVICE_VIEW ) {
 
             ((DeviceViewHolder)holder).mDeviceName.setText(((Device) mContentList.get(position)).getName());
+            boolean isOn = ((Device)mContentList.get(position)).isOn();
+
+            if( isOn ) {
+                ((DeviceViewHolder) holder).mDeviceStatus.setText("Online");
+                ((DeviceViewHolder) holder).mDeviceStatus.setTextColor(Color.parseColor("#07a8e3"));
+            }
+            else {
+                ((DeviceViewHolder) holder).mDeviceStatus.setText("Standby Mode");
+                ((DeviceViewHolder) holder).mDeviceStatus.setTextColor(Color.parseColor("#ff892e"));
+            }
         }
         else if( holder.getItemViewType() == ZONE_VIEW ) {
 
@@ -106,10 +117,12 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private class DeviceViewHolder extends RecyclerView.ViewHolder {
 
         TextView mDeviceName;
+        TextView mDeviceStatus;
 
         private DeviceViewHolder(View view) {
             super(view);
             mDeviceName = (TextView) view.findViewById(R.id.device_name);
+            mDeviceStatus = (TextView) view.findViewById(R.id.device_status);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override

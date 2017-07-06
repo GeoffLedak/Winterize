@@ -23,6 +23,7 @@ public class ZoneDetailFragment extends Fragment {
 
     View mView;
     TextView mZoneName;
+    Zone mZone;
 
     @Nullable
     @Override
@@ -31,10 +32,10 @@ public class ZoneDetailFragment extends Fragment {
         mView = inflater.inflate(R.layout.fragment_zone_detail, container, false);
         mZoneName = (TextView) mView.findViewById(R.id.zone_name);
 
-        Zone zone = Parcels.unwrap(getArguments().getParcelable(AppKeys.KEY_SELECTED_ZONE));
-        mZoneName.setText(zone.getName());
+        mZone = Parcels.unwrap(getArguments().getParcelable(AppKeys.KEY_SELECTED_ZONE));
+        mZoneName.setText(mZone.getName());
 
-        ((MainActivity)getContext()).getSupportActionBar().setTitle(zone.getName());
+        ((MainActivity)getContext()).getSupportActionBar().setTitle(mZone.getName());
 
         return mView;
     }
