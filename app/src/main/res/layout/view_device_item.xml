@@ -1,18 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="DEVICE VIEW"/>
+        android:layout_margin="8dp"
+        card_view:cardCornerRadius="4dp"
+        >
 
-    <TextView
-        android:id="@+id/device_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="device name"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="40dp"
+                android:layout_height="80dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="40dp"
+                android:paddingLeft="4dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/logo"/>
+
+            <TextView
+                android:id="@+id/device_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/image"
+                android:gravity="center_horizontal"
+                android:background="#AA000000"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:text="device name"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="20dp"
+                android:textSize="18sp"
+                android:textColor="#07a8e3"
+                android:text="Online"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>
