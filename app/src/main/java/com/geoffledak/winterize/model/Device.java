@@ -1,8 +1,11 @@
 
 package com.geoffledak.winterize.model;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
+@Parcel
 public class Device {
 
     private long createDate;

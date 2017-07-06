@@ -1,7 +1,9 @@
 
 package com.geoffledak.winterize.model;
 
+import org.parceler.Parcel;
 
+@Parcel
 public class CustomNozzle {
 
     private String name;

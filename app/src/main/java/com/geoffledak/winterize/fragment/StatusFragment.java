@@ -3,7 +3,9 @@ package com.geoffledak.winterize.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 
 import com.geoffledak.winterize.R;
 import com.geoffledak.winterize.activity.MainActivity;
+import com.geoffledak.winterize.adapter.ContentAdapter;
 import com.geoffledak.winterize.model.Device;
 import com.geoffledak.winterize.model.Info;
 import com.geoffledak.winterize.model.InfoFull;
@@ -21,9 +24,9 @@ import com.geoffledak.winterize.service.RachioClient;
 import com.geoffledak.winterize.utils.APIUtils;
 import com.geoffledak.winterize.utils.DeviceUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,6 +45,9 @@ public class StatusFragment extends Fragment {
 
     private TextView onOrOffText;
     private Button onOrOffButton;
+
+    ContentAdapter mAdapter;
+    RecyclerView mRecyclerView;
 
     @Nullable
     @Override
@@ -132,7 +138,7 @@ public class StatusFragment extends Fragment {
         Retrofit retrofit = APIUtils.buildRetrofit(getContext());
         RachioClient client = retrofit.create(RachioClient.class);
 
-        Call<String> call = client.turnOnDevice(mActivity.getAPIToken(), new Info(mActivity.getInfoFull().getDevices().get(0).getId()));
+        Call<String> call = client.turnDeviceOn(mActivity.getAPIToken(), new Info(mActivity.getInfoFull().getDevices().get(0).getId()));
 
         call.enqueue(new Callback<String>() {
             @Override
@@ -156,7 +162,7 @@ public class StatusFragment extends Fragment {
         Retrofit retrofit = APIUtils.buildRetrofit(getContext());
         RachioClient client = retrofit.create(RachioClient.class);
 
-        Call<String> call = client.turnOffDevice(mActivity.getAPIToken(), new Info(mActivity.getInfoFull().getDevices().get(0).getId()));
+        Call<String> call = client.turnDeviceOff(mActivity.getAPIToken(), new Info(mActivity.getInfoFull().getDevices().get(0).getId()));
 
         call.enqueue(new Callback<String>() {
             @Override
@@ -190,14 +196,49 @@ public class StatusFragment extends Fragment {
 
         List<Device> deviceList = mActivity.getInfoFull().getDevices();
 
+        List<Object> contentList = new ArrayList<>();
+
         for( Device device : deviceList ) {
             daText = daText + device.getName() + "\n";
+            contentList.add(device);
             for( Zone zone : device.getZones() ) {
                 daText = daText + zone.getName() + "\n";
+                contentList.add(zone);
             }
         }
 
         mZoneList.setText( daText );
+
+
+
+
+
+
+        mAdapter = new ContentAdapter(getContext(), contentList);
+
+        mRecyclerView = (RecyclerView)mView.findViewById(R.id.recycler_view);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+
+                switch(mAdapter.getItemViewType(position)){
+                    case ContentAdapter.DEVICE_VIEW:
+                        return 2;
+                    case ContentAdapter.ZONE_VIEW:
+                        return 1;
+                    default:
+                        return 1;
+                }
+
+            }
+        });
+
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+
+
+
 
     }
 
