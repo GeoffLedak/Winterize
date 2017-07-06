@@ -1,4 +1,4 @@
-package com.geoffledak.winterize.model.person;
+package com.geoffledak.winterize.model;
 
 import org.parceler.Parcel;
 

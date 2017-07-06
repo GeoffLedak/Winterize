@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.geoffledak.winterize.R;
 import com.geoffledak.winterize.activity.MainActivity;
-import com.geoffledak.winterize.model.person.Info;
+import com.geoffledak.winterize.model.Info;
 import com.geoffledak.winterize.service.RachioClient;
 import com.geoffledak.winterize.utils.APIUtils;
 
@@ -53,7 +53,7 @@ public class LoginFragment extends Fragment {
         final String token = APIUtils.buildTokenString(getContext(), mTokenText.getText().toString());
         Retrofit retrofit = APIUtils.buildRetrofit(getContext());
         RachioClient client = retrofit.create(RachioClient.class);
-        Call<Info> call = client.infoForPerson(token);
+        Call<Info> call = client.idForPerson(token);
 
         call.enqueue(new Callback<Info>() {
             @Override
@@ -70,7 +70,7 @@ public class LoginFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<Info> call, Throwable t) {
-                Toast.makeText(getContext(), "Unable to reach network server", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "D'oh!", Toast.LENGTH_SHORT).show();
             }
         });
     }
