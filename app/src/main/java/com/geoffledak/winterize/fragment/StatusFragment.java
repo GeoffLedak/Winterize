@@ -122,7 +122,7 @@ public class StatusFragment extends Fragment {
     }
 
 
-    private void loadInfoFull() {
+    public void loadInfoFull() {
         Retrofit retrofit = APIUtils.buildRetrofit(getContext());
         RachioClient client = retrofit.create(RachioClient.class);
 
@@ -224,19 +224,13 @@ public class StatusFragment extends Fragment {
                     Toast.makeText(getContext(), command, Toast.LENGTH_SHORT).show();
 
                     if( command.equalsIgnoreCase("turn device off") )
-                        DeviceUtils.turnDeviceOff(mActivity, mActivity.getInfoFull().getDevices().get(0));
+                        DeviceUtils.turnDeviceOff(mActivity, StatusFragment.this, mActivity.getInfoFull().getDevices().get(0));
 
                     if( command.equalsIgnoreCase("turn device on") )
-                        DeviceUtils.turnDeviceOn(mActivity, mActivity.getInfoFull().getDevices().get(0));
-
-
-
-
-
+                        DeviceUtils.turnDeviceOn(mActivity, StatusFragment.this, mActivity.getInfoFull().getDevices().get(0));
                 }
                 break;
             }
-
         }
     }
 }

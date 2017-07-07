@@ -1,9 +1,9 @@
 package com.geoffledak.winterize.utils;
 
-import android.content.Context;
 import android.widget.Toast;
 
 import com.geoffledak.winterize.activity.MainActivity;
+import com.geoffledak.winterize.fragment.StatusFragment;
 import com.geoffledak.winterize.model.Device;
 import com.geoffledak.winterize.model.Info;
 import com.geoffledak.winterize.model.Zone;
@@ -39,7 +39,7 @@ public class DeviceUtils {
     }
 
 
-    public static void turnDeviceOff(final MainActivity activity, Device device) {
+    public static void turnDeviceOff(final MainActivity activity, final StatusFragment fragment, Device device) {
 
         VisualUtils.getInstance().showLoadingDialog(activity);
         Retrofit retrofit = APIUtils.buildRetrofit(activity);
@@ -49,7 +49,7 @@ public class DeviceUtils {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                Toast.makeText(activity, "Device successfully turned off", Toast.LENGTH_SHORT).show();
+                fragment.loadInfoFull();
                 VisualUtils.getInstance().dismissLoadingDialog();
             }
             @Override
@@ -61,7 +61,7 @@ public class DeviceUtils {
     }
 
 
-    public static void turnDeviceOn(final MainActivity activity, Device device) {
+    public static void turnDeviceOn(final MainActivity activity, final StatusFragment fragment, Device device) {
 
         VisualUtils.getInstance().showLoadingDialog(activity);
         Retrofit retrofit = APIUtils.buildRetrofit(activity);
@@ -71,7 +71,7 @@ public class DeviceUtils {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                Toast.makeText(activity, "Device successfully turned on", Toast.LENGTH_SHORT).show();
+                fragment.loadInfoFull();
                 VisualUtils.getInstance().dismissLoadingDialog();
             }
             @Override
