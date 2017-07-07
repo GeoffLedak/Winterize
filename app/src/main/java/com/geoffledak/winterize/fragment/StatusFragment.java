@@ -54,6 +54,8 @@ public class StatusFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
+    private final int REQ_CODE_SPEECH_INPUT = 100;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -198,9 +200,9 @@ public class StatusFragment extends Fragment {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "say: \"turn device off\"");
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak your command");
         try {
-            startActivityForResult(intent, 100);
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
         } catch (ActivityNotFoundException a) {
             Toast.makeText(getContext(), "Speech not supported", Toast.LENGTH_SHORT).show();
         }
@@ -212,12 +214,24 @@ public class StatusFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
-            case 100: {
+            case REQ_CODE_SPEECH_INPUT: {
                 if (resultCode == RESULT_OK && null != data) {
 
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    String command = result.get(0);
+                    command = command.trim();
 
-                    Toast.makeText(getContext(), result.get(0), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), command, Toast.LENGTH_SHORT).show();
+
+                    if( command.equalsIgnoreCase("turn device off") )
+                        DeviceUtils.turnDeviceOff(mActivity, mActivity.getInfoFull().getDevices().get(0));
+
+                    if( command.equalsIgnoreCase("turn device on") )
+                        DeviceUtils.turnDeviceOn(mActivity, mActivity.getInfoFull().getDevices().get(0));
+
+
+
+
 
                 }
                 break;

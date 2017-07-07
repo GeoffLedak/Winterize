@@ -1,10 +1,21 @@
 package com.geoffledak.winterize.utils;
 
+import android.content.Context;
+import android.widget.Toast;
+
+import com.geoffledak.winterize.activity.MainActivity;
 import com.geoffledak.winterize.model.Device;
+import com.geoffledak.winterize.model.Info;
 import com.geoffledak.winterize.model.Zone;
+import com.geoffledak.winterize.service.RachioClient;
 
 import java.util.Comparator;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by Geoff Ledak on 7/6/2017.
@@ -25,6 +36,50 @@ public class DeviceUtils {
         }
 
         return deviceList;
+    }
+
+
+    public static void turnDeviceOff(final MainActivity activity, Device device) {
+
+        VisualUtils.getInstance().showLoadingDialog(activity);
+        Retrofit retrofit = APIUtils.buildRetrofit(activity);
+        RachioClient client = retrofit.create(RachioClient.class);
+        Call<String> call = client.turnDeviceOff(activity.getAPIToken(), new Info(device.getId()));
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Toast.makeText(activity, "Device successfully turned off", Toast.LENGTH_SHORT).show();
+                VisualUtils.getInstance().dismissLoadingDialog();
+            }
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Toast.makeText(activity, "Network error", Toast.LENGTH_SHORT).show();
+                VisualUtils.getInstance().dismissLoadingDialog();
+            }
+        });
+    }
+
+
+    public static void turnDeviceOn(final MainActivity activity, Device device) {
+
+        VisualUtils.getInstance().showLoadingDialog(activity);
+        Retrofit retrofit = APIUtils.buildRetrofit(activity);
+        RachioClient client = retrofit.create(RachioClient.class);
+        Call<String> call = client.turnDeviceOn(activity.getAPIToken(), new Info(device.getId()));
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Toast.makeText(activity, "Device successfully turned on", Toast.LENGTH_SHORT).show();
+                VisualUtils.getInstance().dismissLoadingDialog();
+            }
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Toast.makeText(activity, "Network error", Toast.LENGTH_SHORT).show();
+                VisualUtils.getInstance().dismissLoadingDialog();
+            }
+        });
     }
 
 }
