@@ -26,6 +26,7 @@
                 android:text="Water zone for"/>
 
             <EditText
+                android:id="@+id/edit_text_minutes"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:layout_marginTop="8dp"
@@ -48,12 +49,13 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/zone_start_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="4dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="Begin"/>
+            android:text="Start"/>
 
     </RelativeLayout>
 
@@ -80,6 +82,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/zone_stop_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="4dp"
