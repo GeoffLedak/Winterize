@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        card_view:cardCornerRadius="4dp"
-        >
+        card_view:cardCornerRadius="4dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -23,18 +22,18 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:src="@drawable/lawn"/>
+                android:src="@drawable/lawn" />
 
             <TextView
                 android:id="@+id/zone_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/image"
-                android:gravity="center_horizontal"
                 android:background="#AA000000"
+                android:gravity="center_horizontal"
+                android:text="zone name"
                 android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:text="zone name"/>
+                android:textSize="24sp" />
 
         </RelativeLayout>
 

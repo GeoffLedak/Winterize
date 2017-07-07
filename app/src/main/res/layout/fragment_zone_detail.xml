@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_marginTop="8dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginTop="8dp"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,37 +14,37 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_centerVertical="true"
             android:gravity="center_vertical"
-            android:layout_centerVertical="true">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
                 android:padding="8dp"
-                android:text="Water zone for"/>
+                android:text="Water zone for"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/edit_text_minutes"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 android:background="#11000000"
-                android:inputType="number"
-                android:selectAllOnFocus="true"
-                android:text="20"
                 android:gravity="center"
+                android:inputType="number"
                 android:maxLines="1"
-                android:minEms="2"/>
+                android:minEms="2"
+                android:selectAllOnFocus="true"
+                android:text="20" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
                 android:padding="8dp"
-                android:text="minutes."/>
+                android:text="minutes."
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -52,10 +52,10 @@
             android:id="@+id/zone_start_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="4dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="Start"/>
+            android:layout_marginRight="4dp"
+            android:text="Start" />
 
     </RelativeLayout>
 
@@ -68,16 +68,16 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_centerVertical="true"
             android:gravity="center_vertical"
-            android:layout_centerVertical="true">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
                 android:padding="8dp"
-                android:text="Stop watering zone"/>
+                android:text="Stop watering zone"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -85,10 +85,10 @@
             android:id="@+id/zone_stop_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="4dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="Stop"/>
+            android:layout_marginRight="4dp"
+            android:text="Stop" />
 
     </RelativeLayout>
 
