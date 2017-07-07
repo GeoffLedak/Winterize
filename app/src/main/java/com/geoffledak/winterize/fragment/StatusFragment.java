@@ -3,6 +3,7 @@ package com.geoffledak.winterize.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -43,6 +44,7 @@ public class StatusFragment extends Fragment {
 
     ContentAdapter mAdapter;
     RecyclerView mRecyclerView;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Nullable
     @Override
@@ -52,7 +54,14 @@ public class StatusFragment extends Fragment {
         mActivity = ((MainActivity) getContext());
         mPersonName = (TextView) mView.findViewById(R.id.person_name);
         mPersonEmail = (TextView) mView.findViewById(R.id.person_email);
-        mRecyclerView = (RecyclerView)mView.findViewById(R.id.recycler_view);
+        mRecyclerView = (RecyclerView) mView.findViewById(R.id.recycler_view);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) mView.findViewById(R.id.swipe_refresh);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadInfoFull();
+            }
+        });
 
         initListAndAdapter();
         populateNameAndEmail();
@@ -162,6 +171,9 @@ public class StatusFragment extends Fragment {
 
         mAdapter.setItemList(contentList);
         mAdapter.notifyDataSetChanged();
+        if( mSwipeRefreshLayout.isRefreshing() )
+            Toast.makeText(getContext(), "Refresh successful", Toast.LENGTH_SHORT).show();
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
 }
