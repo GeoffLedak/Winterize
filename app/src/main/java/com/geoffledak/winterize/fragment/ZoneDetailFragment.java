@@ -88,7 +88,7 @@ public class ZoneDetailFragment extends Fragment {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
                 VisualUtils.getInstance().dismissLoadingDialog();
             }
         });
@@ -113,7 +113,7 @@ public class ZoneDetailFragment extends Fragment {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
                 VisualUtils.getInstance().dismissLoadingDialog();
             }
         });

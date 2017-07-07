@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.geoffledak.winterize.R;
 import com.geoffledak.winterize.fragment.LoginFragment;
 import com.geoffledak.winterize.model.InfoFull;
+import com.geoffledak.winterize.utils.VisualUtils;
 
 
 public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
@@ -24,6 +25,12 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         shouldDisplayHomeUp();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.main_content_container, new LoginFragment()).commit();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        VisualUtils.getInstance().destroyLoadingDialog();
     }
 
     @Override

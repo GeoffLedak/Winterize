@@ -26,21 +26,23 @@ public class VisualUtils {
 
     public void showLoadingDialog(Context context) {
 
-        if( mDialog == null )
-            mDialog = new ProgressDialog(context);
+            if (mDialog == null)
+                mDialog = new ProgressDialog(context);
 
-        mDialog.setMessage("Please wait");
-        mDialog.setCancelable(false);
-        mDialog.show();
-
+            mDialog.setMessage("Please wait");
+            mDialog.setCancelable(false);
+            mDialog.show();
     }
 
 
     public void dismissLoadingDialog() {
 
-        if( mDialog != null )
-            mDialog.dismiss();
+            if (mDialog != null)
+                mDialog.dismiss();
     }
 
 
+    public void destroyLoadingDialog() {
+        mDialog = null;
+    }
 }

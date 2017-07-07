@@ -71,7 +71,7 @@ public class LoginFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<Info> call, Throwable t) {
-                Toast.makeText(getContext(), "D'oh!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
             }
         });
     }

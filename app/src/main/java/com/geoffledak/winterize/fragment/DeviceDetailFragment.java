@@ -92,7 +92,7 @@ public class DeviceDetailFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
                 VisualUtils.getInstance().dismissLoadingDialog();
                 mStandbyModeSwitch.setChecked(true);
             }
@@ -119,7 +119,7 @@ public class DeviceDetailFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
                 VisualUtils.getInstance().dismissLoadingDialog();
                 mStandbyModeSwitch.setChecked(false);
             }
