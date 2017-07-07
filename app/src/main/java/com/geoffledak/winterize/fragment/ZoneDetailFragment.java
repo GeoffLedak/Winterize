@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.geoffledak.winterize.R;
 import com.geoffledak.winterize.activity.MainActivity;
@@ -22,7 +21,6 @@ import org.parceler.Parcels;
 public class ZoneDetailFragment extends Fragment {
 
     View mView;
-    TextView mZoneName;
     Zone mZone;
 
     @Nullable
@@ -30,10 +28,7 @@ public class ZoneDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         mView = inflater.inflate(R.layout.fragment_zone_detail, container, false);
-        mZoneName = (TextView) mView.findViewById(R.id.zone_name);
-
         mZone = Parcels.unwrap(getArguments().getParcelable(AppKeys.KEY_SELECTED_ZONE));
-        mZoneName.setText(mZone.getName());
 
         ((MainActivity)getContext()).getSupportActionBar().setTitle(mZone.getName());
 
