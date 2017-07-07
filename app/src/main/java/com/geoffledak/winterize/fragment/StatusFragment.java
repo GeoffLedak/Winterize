@@ -1,6 +1,9 @@
 package com.geoffledak.winterize.fragment;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,11 +29,14 @@ import com.geoffledak.winterize.utils.VisualUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Geoff Ledak on 7/5/2017.
@@ -41,10 +48,11 @@ public class StatusFragment extends Fragment {
     private MainActivity mActivity;
     private TextView mPersonName;
     private TextView mPersonEmail;
+    private LinearLayout mCommandButton;
 
-    ContentAdapter mAdapter;
-    RecyclerView mRecyclerView;
-    SwipeRefreshLayout mSwipeRefreshLayout;
+    private ContentAdapter mAdapter;
+    private RecyclerView mRecyclerView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Nullable
     @Override
@@ -54,12 +62,19 @@ public class StatusFragment extends Fragment {
         mActivity = ((MainActivity) getContext());
         mPersonName = (TextView) mView.findViewById(R.id.person_name);
         mPersonEmail = (TextView) mView.findViewById(R.id.person_email);
+        mCommandButton = (LinearLayout) mView.findViewById(R.id.command_button);
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.recycler_view);
         mSwipeRefreshLayout = (SwipeRefreshLayout) mView.findViewById(R.id.swipe_refresh);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 loadInfoFull();
+            }
+        });
+        mCommandButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleCommandClick();
             }
         });
 
@@ -176,4 +191,38 @@ public class StatusFragment extends Fragment {
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
+
+    private void handleCommandClick() {
+
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "say: \"turn device off\"");
+        try {
+            startActivityForResult(intent, 100);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getContext(), "Speech not supported", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case 100: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+                    Toast.makeText(getContext(), result.get(0), Toast.LENGTH_SHORT).show();
+
+                }
+                break;
+            }
+
+        }
+    }
 }
