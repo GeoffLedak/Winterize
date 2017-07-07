@@ -53,13 +53,13 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        String[] sectionTitles = {"Device Status", "Sign Out"};
+        String[] sectionTitles = {"Overview", "Sign Out"};
 
         mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, sectionTitles));
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // selectItem(position);
+                selectDrawerItem(position);
             }
         });
 
@@ -70,6 +70,19 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
         }
+    }
+
+
+    public void selectDrawerItem(int position) {
+
+        // Sign Out
+        if(position == 1) {
+            PrefUtils.removeKey(this, AppKeys.PREF_API_TOKEN);
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_content_container, new LoginFragment()).commit();
+        }
+
+        mDrawerList.setItemChecked(position, true);
+        mDrawerLayout.closeDrawer(mDrawerList);
     }
 
 
@@ -123,6 +136,9 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         return super.onOptionsItemSelected(item);
     }
 
+    public void setSelectedDrawerItem(int position) {
+        mDrawerList.setItemChecked(position, true);
+    }
 
     public void setAPIToken(String token) { mToken = token; }
     public String getAPIToken() { return mToken; }

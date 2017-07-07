@@ -58,6 +58,7 @@ public class StatusFragment extends Fragment {
         populateNameAndEmail();
         loadInfoFull();
 
+        mActivity.setSelectedDrawerItem(0);
         mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mActivity.getSupportActionBar().setTitle("Overview");
 
