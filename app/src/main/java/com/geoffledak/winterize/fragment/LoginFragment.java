@@ -15,6 +15,7 @@ import com.geoffledak.winterize.activity.MainActivity;
 import com.geoffledak.winterize.model.Info;
 import com.geoffledak.winterize.service.RachioClient;
 import com.geoffledak.winterize.utils.APIUtils;
+import com.geoffledak.winterize.utils.VisualUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -76,6 +77,8 @@ public class LoginFragment extends Fragment {
     }
 
     private void loadStatusFragment() {
+
+        VisualUtils.getInstance().showLoadingDialog(getContext());
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_content_container, new StatusFragment()).commit();
     }
 

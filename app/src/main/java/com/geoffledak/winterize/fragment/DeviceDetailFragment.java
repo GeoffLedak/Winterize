@@ -17,6 +17,7 @@ import com.geoffledak.winterize.model.Info;
 import com.geoffledak.winterize.service.RachioClient;
 import com.geoffledak.winterize.utils.APIUtils;
 import com.geoffledak.winterize.utils.AppKeys;
+import com.geoffledak.winterize.utils.VisualUtils;
 
 import org.parceler.Parcels;
 
@@ -83,6 +84,8 @@ public class DeviceDetailFragment extends Fragment {
 
     private void turnDeviceOn() {
 
+        VisualUtils.getInstance().showLoadingDialog(getContext());
+
         Retrofit retrofit = APIUtils.buildRetrofit(getContext());
         RachioClient client = retrofit.create(RachioClient.class);
 
@@ -94,12 +97,15 @@ public class DeviceDetailFragment extends Fragment {
 
                 Toast.makeText(getContext(), "Device successfully turned on", Toast.LENGTH_SHORT).show();
                 mDevice.setOn(true);
+                VisualUtils.getInstance().dismissLoadingDialog();
                 // loadInfoFull();
 
             }
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                VisualUtils.getInstance().dismissLoadingDialog();
+                mStandbyModeSwitch.setChecked(true);
             }
         });
 
@@ -107,6 +113,8 @@ public class DeviceDetailFragment extends Fragment {
 
 
     private void turnDeviceOff() {
+
+        VisualUtils.getInstance().showLoadingDialog(getContext());
 
         Retrofit retrofit = APIUtils.buildRetrofit(getContext());
         RachioClient client = retrofit.create(RachioClient.class);
@@ -119,12 +127,15 @@ public class DeviceDetailFragment extends Fragment {
 
                 Toast.makeText(getContext(), "Device successfully turned off", Toast.LENGTH_SHORT).show();
                 mDevice.setOn(false);
+                VisualUtils.getInstance().dismissLoadingDialog();
                 // loadInfoFull();
 
             }
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                VisualUtils.getInstance().dismissLoadingDialog();
+                mStandbyModeSwitch.setChecked(false);
             }
         });
 

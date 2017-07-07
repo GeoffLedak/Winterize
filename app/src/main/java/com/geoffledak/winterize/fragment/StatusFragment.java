@@ -4,12 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,12 +15,12 @@ import com.geoffledak.winterize.R;
 import com.geoffledak.winterize.activity.MainActivity;
 import com.geoffledak.winterize.adapter.ContentAdapter;
 import com.geoffledak.winterize.model.Device;
-import com.geoffledak.winterize.model.Info;
 import com.geoffledak.winterize.model.InfoFull;
 import com.geoffledak.winterize.model.Zone;
 import com.geoffledak.winterize.service.RachioClient;
 import com.geoffledak.winterize.utils.APIUtils;
 import com.geoffledak.winterize.utils.DeviceUtils;
+import com.geoffledak.winterize.utils.VisualUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,10 +38,8 @@ public class StatusFragment extends Fragment {
 
     private View mView;
     private MainActivity mActivity;
-    private TextView mPersonId;
-
-    private TextView onOrOffText;
-    private Button onOrOffButton;
+    private TextView mPersonName;
+    private TextView mPersonEmail;
 
     ContentAdapter mAdapter;
     RecyclerView mRecyclerView;
@@ -54,12 +50,8 @@ public class StatusFragment extends Fragment {
 
         mView = inflater.inflate(R.layout.fragment_status, container, false);
         mActivity = ((MainActivity) getContext());
-        mPersonId = (TextView) mView.findViewById(R.id.person_id);
-
-        onOrOffText = (TextView) mView.findViewById(R.id.device_on_or_off);
-        onOrOffButton = (Button) mView.findViewById(R.id.button_set_device_on_or_off);
-
-        mPersonId.setText(mActivity.getPersonId());
+        mPersonName = (TextView) mView.findViewById(R.id.person_name);
+        mPersonEmail = (TextView) mView.findViewById(R.id.person_email);
 
         loadInfoFull();
 
@@ -85,6 +77,7 @@ public class StatusFragment extends Fragment {
                 else {
                     mActivity.setInfoFull(infoFull);
                     populateStatusInfo();
+                    VisualUtils.getInstance().dismissLoadingDialog();
                 }
             }
             @Override
@@ -97,100 +90,11 @@ public class StatusFragment extends Fragment {
 
     private void populateStatusInfo() {
 
+        mPersonName.setText(mActivity.getInfoFull().getFullName());
+        mPersonEmail.setText(mActivity.getInfoFull().getEmail());
+
         // Iterate through all devices and sort each zone list by 'zoneNumber'
         mActivity.getInfoFull().setDevices(DeviceUtils.sortDeviceZones( mActivity.getInfoFull().getDevices() ) );
-
-
-        setDeviceStatusText();
-
-        onOrOffButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleStatusButtonClick();
-            }
-        });
-
-
-        printStuff();
-
-    }
-
-
-
-    private void handleStatusButtonClick() {
-
-
-        if( mActivity.getInfoFull().getDevices().get(0).isOn() ) {
-
-            // use Retrofit to turn device off (on = false);
-            turnDeviceOff();
-        }
-        else {
-            // use Retrofit to turn device on (on = true);
-            turnDeviceOn();
-        }
-
-    }
-
-
-    private void turnDeviceOn() {
-
-        Retrofit retrofit = APIUtils.buildRetrofit(getContext());
-        RachioClient client = retrofit.create(RachioClient.class);
-
-        Call<String> call = client.turnDeviceOn(mActivity.getAPIToken(), new Info(mActivity.getInfoFull().getDevices().get(0).getId()));
-
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-
-                Toast.makeText(getContext(), "Device successfully turned on", Toast.LENGTH_SHORT).show();
-                loadInfoFull();
-
-            }
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-
-
-    private void turnDeviceOff() {
-
-        Retrofit retrofit = APIUtils.buildRetrofit(getContext());
-        RachioClient client = retrofit.create(RachioClient.class);
-
-        Call<String> call = client.turnDeviceOff(mActivity.getAPIToken(), new Info(mActivity.getInfoFull().getDevices().get(0).getId()));
-
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-
-                Toast.makeText(getContext(), "Device successfully turned off", Toast.LENGTH_SHORT).show();
-                loadInfoFull();
-
-            }
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-
-
-
-    private void setDeviceStatusText() {
-        if( mActivity.getInfoFull().getDevices().get(0).isOn() )
-            onOrOffText.setText("ON");
-        else
-            onOrOffText.setText("OFF");
-    }
-
-
-    private void printStuff() {
 
         List<Device> deviceList = mActivity.getInfoFull().getDevices();
         List<Object> contentList = new ArrayList<>();
@@ -201,7 +105,6 @@ public class StatusFragment extends Fragment {
                 contentList.add(zone);
             }
         }
-
 
         mAdapter = new ContentAdapter(getContext(), contentList);
 
@@ -219,15 +122,11 @@ public class StatusFragment extends Fragment {
                     default:
                         return 1;
                 }
-
             }
         });
 
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
-
-
     }
-
 
 }
