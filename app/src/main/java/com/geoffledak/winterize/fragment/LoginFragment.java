@@ -60,6 +60,7 @@ public class LoginFragment extends Fragment {
         });
 
         mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        mActivity.getSupportActionBar().hide();
 
         return mView;
     }
@@ -94,6 +95,7 @@ public class LoginFragment extends Fragment {
     private void loadStatusFragment() {
 
         VisualUtils.getInstance().showLoadingDialog(getContext());
+        mActivity.getSupportActionBar().show();
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_content_container, new StatusFragment()).commit();
     }
 }

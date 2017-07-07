@@ -39,6 +39,7 @@ public class LoadingFragment extends Fragment {
         mActivity = (MainActivity) getContext();
 
         mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        mActivity.getSupportActionBar().hide();
         verifyToken();
 
         return mView;
@@ -75,6 +76,7 @@ public class LoadingFragment extends Fragment {
 
     private void loadStatusFragment() {
         VisualUtils.getInstance().showLoadingDialog(getContext());
+        mActivity.getSupportActionBar().show();
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_content_container, new StatusFragment()).commit();
     }
 
