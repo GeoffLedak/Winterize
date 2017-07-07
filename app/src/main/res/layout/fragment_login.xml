@@ -17,8 +17,7 @@
         android:layout_height="wrap_content"
         android:inputType="text"
         android:selectAllOnFocus="true"
-        android:maxLines="2"
-        android:text="@string/api_authorization"/>
+        android:maxLines="2"/>
 
     <Button
         android:id="@+id/submit_button"

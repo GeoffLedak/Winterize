@@ -121,11 +121,15 @@ public class StatusFragment extends Fragment {
 
         if( mActivity != null && mActivity.getInfoFull() != null ) {
 
-            if( mPersonName != null && mActivity.getInfoFull().getFullName() != null )
+            if( mPersonName != null && mActivity.getInfoFull().getFullName() != null ) {
+                mView.findViewById(R.id.name_heading).setVisibility(View.VISIBLE);
                 mPersonName.setText(mActivity.getInfoFull().getFullName());
+            }
 
-            if( mPersonEmail != null && mActivity.getInfoFull().getEmail() != null )
+            if( mPersonEmail != null && mActivity.getInfoFull().getEmail() != null ) {
+                mView.findViewById(R.id.email_heading).setVisibility(View.VISIBLE);
                 mPersonEmail.setText(mActivity.getInfoFull().getEmail());
+            }
         }
     }
 

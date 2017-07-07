@@ -3,10 +3,15 @@ package com.geoffledak.winterize.activity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.geoffledak.winterize.R;
+import com.geoffledak.winterize.fragment.LoadingFragment;
 import com.geoffledak.winterize.fragment.LoginFragment;
+import com.geoffledak.winterize.fragment.StatusFragment;
 import com.geoffledak.winterize.model.InfoFull;
+import com.geoffledak.winterize.utils.AppKeys;
+import com.geoffledak.winterize.utils.PrefUtils;
 import com.geoffledak.winterize.utils.VisualUtils;
 
 
@@ -24,7 +29,10 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         getSupportFragmentManager().addOnBackStackChangedListener(this);
         shouldDisplayHomeUp();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_content_container, new LoginFragment()).commit();
+        if( !TextUtils.isEmpty(PrefUtils.getString(this, AppKeys.PREF_API_TOKEN)) )
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_content_container, new LoadingFragment()).commit();
+        else
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_content_container, new LoginFragment()).commit();
     }
 
     @Override

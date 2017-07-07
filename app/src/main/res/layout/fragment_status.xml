@@ -6,11 +6,13 @@
     android:padding="8dp">
 
     <TextView
+        android:id="@+id/name_heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:text="Name:"/>
+        android:text="Name:"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/person_name"
@@ -19,12 +21,14 @@
         android:text=""/>
 
     <TextView
+        android:id="@+id/email_heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:text="Email:"/>
+        android:text="Email:"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/person_email"
@@ -34,13 +38,14 @@
 
 
     <TextView
+        android:id="@+id/devices_heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="6dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:text="Devices"/>
+        android:text="Devices" />
 
 
     <android.support.v7.widget.RecyclerView
