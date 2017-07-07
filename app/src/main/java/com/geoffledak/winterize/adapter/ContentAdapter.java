@@ -5,12 +5,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.geoffledak.winterize.R;
 import com.geoffledak.winterize.fragment.DeviceDetailFragment;
@@ -21,10 +19,11 @@ import com.geoffledak.winterize.utils.AppKeys;
 
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Turbo9000 on 7/6/2017.
+ * Created by Geoff Ledak on 7/6/2017.
  */
 
 public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -36,11 +35,16 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     Context mContext;
     List<Object> mContentList;
 
-    public ContentAdapter(Context context, List<Object> contentList) {
+    public ContentAdapter(Context context) {
+        mContext = context;
+        mContentList = new ArrayList<>();
+    }
 
+    public ContentAdapter(Context context, List<Object> contentList) {
         mContext = context;
         mContentList = contentList;
     }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -59,12 +63,11 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-
         if( holder.getItemViewType() == DEVICE_VIEW ) {
-
             ((DeviceViewHolder)holder).mDeviceName.setText(((Device) mContentList.get(position)).getName());
             boolean isOn = ((Device)mContentList.get(position)).isOn();
 
@@ -78,27 +81,22 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
         }
         else if( holder.getItemViewType() == ZONE_VIEW ) {
-
             ((ZoneViewHolder)holder).mZoneName.setText(((Zone) mContentList.get(position)).getName());
         }
-        else {
-
-        }
-
     }
+
 
     @Override
     public int getItemCount() {
-
         if (mContentList == null)
             return 0;
         else
             return mContentList.size();
     }
 
+
     @Override
     public int getItemViewType(int position) {
-
 
         if (mContentList.get(position) instanceof Device)
             return DEVICE_VIEW;
@@ -109,9 +107,9 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
 
-
-
-
+    public void setItemList(List<Object> contentList) {
+        mContentList = contentList;
+    }
 
 
     private class DeviceViewHolder extends RecyclerView.ViewHolder {
@@ -136,6 +134,7 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             });
         }
     }
+
 
     private class ZoneViewHolder extends RecyclerView.ViewHolder {
 
@@ -163,10 +162,7 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         private BlankViewHolder(View view) {
             super(view);
-
         }
-
     }
-
 }
 

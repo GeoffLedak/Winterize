@@ -52,12 +52,41 @@ public class StatusFragment extends Fragment {
         mActivity = ((MainActivity) getContext());
         mPersonName = (TextView) mView.findViewById(R.id.person_name);
         mPersonEmail = (TextView) mView.findViewById(R.id.person_email);
+        mRecyclerView = (RecyclerView)mView.findViewById(R.id.recycler_view);
 
+        initListAndAdapter();
+        populateNameAndEmail();
         loadInfoFull();
 
         mActivity.getSupportActionBar().setTitle("Overview");
 
         return mView;
+    }
+
+
+    private void initListAndAdapter() {
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+
+                switch(mAdapter.getItemViewType(position)){
+                    case ContentAdapter.DEVICE_VIEW:
+                        return 2;
+                    case ContentAdapter.ZONE_VIEW:
+                        return 1;
+                    default:
+                        return 1;
+                }
+            }
+        });
+
+        mRecyclerView.setLayoutManager(layoutManager);
+
+        if( mAdapter == null )
+            mAdapter = new ContentAdapter((getContext()));
+
+        mRecyclerView.setAdapter(mAdapter);
     }
 
 
@@ -88,10 +117,22 @@ public class StatusFragment extends Fragment {
     }
 
 
+    private void populateNameAndEmail() {
+
+        if( mActivity != null && mActivity.getInfoFull() != null ) {
+
+            if( mPersonName != null && mActivity.getInfoFull().getFullName() != null )
+                mPersonName.setText(mActivity.getInfoFull().getFullName());
+
+            if( mPersonEmail != null && mActivity.getInfoFull().getEmail() != null )
+                mPersonEmail.setText(mActivity.getInfoFull().getEmail());
+        }
+    }
+
+
     private void populateStatusInfo() {
 
-        mPersonName.setText(mActivity.getInfoFull().getFullName());
-        mPersonEmail.setText(mActivity.getInfoFull().getEmail());
+        populateNameAndEmail();
 
         // Iterate through all devices and sort each zone list by 'zoneNumber'
         mActivity.getInfoFull().setDevices(DeviceUtils.sortDeviceZones( mActivity.getInfoFull().getDevices() ) );
@@ -106,27 +147,8 @@ public class StatusFragment extends Fragment {
             }
         }
 
-        mAdapter = new ContentAdapter(getContext(), contentList);
-
-        mRecyclerView = (RecyclerView)mView.findViewById(R.id.recycler_view);
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
-        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-
-                switch(mAdapter.getItemViewType(position)){
-                    case ContentAdapter.DEVICE_VIEW:
-                        return 2;
-                    case ContentAdapter.ZONE_VIEW:
-                        return 1;
-                    default:
-                        return 1;
-                }
-            }
-        });
-
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setItemList(contentList);
+        mAdapter.notifyDataSetChanged();
     }
 
 }

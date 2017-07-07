@@ -27,7 +27,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 /**
- * Created by Turbo9000 on 7/6/2017.
+ * Created by Geoff Ledak on 7/6/2017.
  */
 
 public class DeviceDetailFragment extends Fragment {
@@ -64,22 +64,13 @@ public class DeviceDetailFragment extends Fragment {
     }
 
 
-
     private void handleStandbyModeSwitchClick() {
 
-        if( mDevice.isOn() ) {
-
-            // use Retrofit to turn device off (on = false);
+        if( mDevice.isOn() )
             turnDeviceOff();
-        }
-        else {
-            // use Retrofit to turn device on (on = true);
+        else
             turnDeviceOn();
-        }
-
     }
-
-
 
 
     private void turnDeviceOn() {
@@ -98,8 +89,6 @@ public class DeviceDetailFragment extends Fragment {
                 Toast.makeText(getContext(), "Device successfully turned on", Toast.LENGTH_SHORT).show();
                 mDevice.setOn(true);
                 VisualUtils.getInstance().dismissLoadingDialog();
-                // loadInfoFull();
-
             }
             @Override
             public void onFailure(Call<String> call, Throwable t) {
@@ -108,7 +97,6 @@ public class DeviceDetailFragment extends Fragment {
                 mStandbyModeSwitch.setChecked(true);
             }
         });
-
     }
 
 
@@ -128,8 +116,6 @@ public class DeviceDetailFragment extends Fragment {
                 Toast.makeText(getContext(), "Device successfully turned off", Toast.LENGTH_SHORT).show();
                 mDevice.setOn(false);
                 VisualUtils.getInstance().dismissLoadingDialog();
-                // loadInfoFull();
-
             }
             @Override
             public void onFailure(Call<String> call, Throwable t) {
@@ -138,10 +124,5 @@ public class DeviceDetailFragment extends Fragment {
                 mStandbyModeSwitch.setChecked(false);
             }
         });
-
     }
-
-
-
-
 }
