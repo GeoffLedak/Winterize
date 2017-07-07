@@ -86,6 +86,10 @@ public class StatusFragment extends Fragment {
         if( mAdapter == null )
             mAdapter = new ContentAdapter((getContext()));
 
+        if( mAdapter.getItemCount() > 0 )
+            mView.findViewById(R.id.devices_heading).setVisibility(View.VISIBLE);
+
+
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -150,6 +154,9 @@ public class StatusFragment extends Fragment {
                 contentList.add(zone);
             }
         }
+
+        if( contentList.size() > 0 )
+            mView.findViewById(R.id.devices_heading).setVisibility(View.VISIBLE);
 
         mAdapter.setItemList(contentList);
         mAdapter.notifyDataSetChanged();
