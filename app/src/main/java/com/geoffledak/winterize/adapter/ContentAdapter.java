@@ -45,7 +45,6 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         mContentList = contentList;
     }
 
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -62,7 +61,6 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             return new BlankViewHolder(view);
         }
     }
-
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
@@ -85,7 +83,6 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-
     @Override
     public int getItemCount() {
         if (mContentList == null)
@@ -93,7 +90,6 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         else
             return mContentList.size();
     }
-
 
     @Override
     public int getItemViewType(int position) {

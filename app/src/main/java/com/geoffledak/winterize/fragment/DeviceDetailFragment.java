@@ -57,9 +57,7 @@ public class DeviceDetailFragment extends Fragment {
         });
 
         mModel.setText(mDevice.getModel());
-
         ((MainActivity)getContext()).getSupportActionBar().setTitle(mDevice.getName());
-
         return mView;
     }
 
@@ -76,10 +74,8 @@ public class DeviceDetailFragment extends Fragment {
     private void turnDeviceOn() {
 
         VisualUtils.getInstance().showLoadingDialog(getContext());
-
         Retrofit retrofit = APIUtils.buildRetrofit(getContext());
         RachioClient client = retrofit.create(RachioClient.class);
-
         Call<String> call = client.turnDeviceOn(mActivity.getAPIToken(), new Info(mDevice.getId()));
 
         call.enqueue(new Callback<String>() {
@@ -103,10 +99,8 @@ public class DeviceDetailFragment extends Fragment {
     private void turnDeviceOff() {
 
         VisualUtils.getInstance().showLoadingDialog(getContext());
-
         Retrofit retrofit = APIUtils.buildRetrofit(getContext());
         RachioClient client = retrofit.create(RachioClient.class);
-
         Call<String> call = client.turnDeviceOff(mActivity.getAPIToken(), new Info(mDevice.getId()));
 
         call.enqueue(new Callback<String>() {

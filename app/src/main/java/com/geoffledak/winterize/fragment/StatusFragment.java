@@ -117,7 +117,6 @@ public class StatusFragment extends Fragment {
         if( mAdapter.getItemCount() > 0 )
             mView.findViewById(R.id.devices_heading).setVisibility(View.VISIBLE);
 
-
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -125,7 +124,6 @@ public class StatusFragment extends Fragment {
     public void loadInfoFull() {
         Retrofit retrofit = APIUtils.buildRetrofit(getContext());
         RachioClient client = retrofit.create(RachioClient.class);
-
         Call<InfoFull> call = client.infoFullForPerson(mActivity.getAPIToken(), mActivity.getPersonId());
 
         call.enqueue(new Callback<InfoFull>() {
@@ -188,14 +186,15 @@ public class StatusFragment extends Fragment {
 
         mAdapter.setItemList(contentList);
         mAdapter.notifyDataSetChanged();
+
         if( mSwipeRefreshLayout.isRefreshing() )
             Toast.makeText(getContext(), "Refresh successful", Toast.LENGTH_SHORT).show();
+
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
 
     private void handleCommandClick() {
-
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -216,7 +215,6 @@ public class StatusFragment extends Fragment {
         switch (requestCode) {
             case REQ_CODE_SPEECH_INPUT: {
                 if (resultCode == RESULT_OK && null != data) {
-
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String command = result.get(0);
                     command = command.trim();

@@ -93,7 +93,6 @@ public class LoginFragment extends Fragment {
     }
 
     private void loadStatusFragment() {
-
         VisualUtils.getInstance().showLoadingDialog(getContext());
         mActivity.getSupportActionBar().show();
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_content_container, new StatusFragment()).commit();
