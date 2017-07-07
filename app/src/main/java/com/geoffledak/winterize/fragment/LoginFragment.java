@@ -39,6 +39,7 @@ public class LoginFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         mView = inflater.inflate(R.layout.fragment_login, container, false);
         mActivity = ((MainActivity)getContext());
         mTokenText = (EditText) mView.findViewById(R.id.token_text);
@@ -57,6 +58,8 @@ public class LoginFragment extends Fragment {
                 verifyToken();
             }
         });
+
+        mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         return mView;
     }
@@ -93,5 +96,4 @@ public class LoginFragment extends Fragment {
         VisualUtils.getInstance().showLoadingDialog(getContext());
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_content_container, new StatusFragment()).commit();
     }
-
 }

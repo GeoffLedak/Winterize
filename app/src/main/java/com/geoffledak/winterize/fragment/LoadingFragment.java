@@ -38,12 +38,11 @@ public class LoadingFragment extends Fragment {
         mView = inflater.inflate(R.layout.fragment_loading, container, false);
         mActivity = (MainActivity) getContext();
 
+        mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         verifyToken();
 
         return mView;
     }
-
-
 
     private void verifyToken() {
         final String token = APIUtils.buildTokenString(getContext(), PrefUtils.getString(getContext(), AppKeys.PREF_API_TOKEN));
