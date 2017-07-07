@@ -9,6 +9,7 @@ import com.geoffledak.winterize.model.Info;
 import com.geoffledak.winterize.model.Zone;
 import com.geoffledak.winterize.service.RachioClient;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class DeviceUtils {
 
         for (Device device : deviceList) {
             List<Zone> zoneList = device.getZones();
-            zoneList.sort(new Comparator<Zone>() {
+            Collections.sort(zoneList, new Comparator<Zone>() {
                 @Override
                 public int compare(Zone o1, Zone o2) {
                     return o1.getZoneNumber() - o2.getZoneNumber();
